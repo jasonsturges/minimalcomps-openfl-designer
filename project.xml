@@ -11,7 +11,9 @@
 	<haxelib name="minimalcomps" />
 	
 	<assets path="Assets" rename="assets" />
-
+	<assets path="Assets/Fonts" rename="fonts" if="html5">
+		<font path="pf_ronda_seven.ttf" id="pf_ronda_seven" />
+	</assets>
 	<icon path="Assets/openfl.svg"/>
 
 	<haxedef name="source-map-content" if="html5"/>
@@ -22,6 +24,6 @@
 	<window width="0" height="0" if="html5"/>
 	<window orientation="landscape" vsync="true" if="cpp"/>
 	<window fps="60" hardware="true" allow-shaders="true" require-shaders="true" depth-buffer="true"
-			stencil-buffer="true" background="#000000"/>
+			stencil-buffer="true" background="#ffffff"/>
 	
 </project>
