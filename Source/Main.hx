@@ -69,7 +69,7 @@ class Main extends Sprite {
     }
 
     /**
-     * dispose (IDisposable)
+     * dispose
      */
     public function dispose():Void {
         removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
