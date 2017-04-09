@@ -59,7 +59,8 @@ class Designer extends Sprite {
     //------------------------------
 
     public static inline var COMPONENT_LIST_WIDTH:Int = 150;
-    public static inline var PROPERTY_PANEL_WIDTH:Int = 200;
+    public static inline var PROPERTY_PANEL_WIDTH:Int = 250;
+    public static inline var PADDING:Int = 4;
 
     private var _componentList:List;
     private var _component:Component;
@@ -94,6 +95,7 @@ class Designer extends Sprite {
         #end
 
         Style.setStyle(Style.DARK);
+        Style.fontSize = 9;
     }
 
     /**
@@ -155,17 +157,17 @@ class Designer extends Sprite {
         _width = w;
         _height = h;
 
-        _componentList.x = 10;
-        _componentList.y = 10;
+        _componentList.x = PADDING;
+        _componentList.y = PADDING;
         _componentList.width = COMPONENT_LIST_WIDTH;
-        _componentList.height = h - 20;
+        _componentList.height = h - (PADDING * 2);
 
-        _propertyPanelHolder.x = w - 210;
-        _propertyPanelHolder.y = 10;
+        _propertyPanelHolder.x = w - PROPERTY_PANEL_WIDTH - 4;
+        _propertyPanelHolder.y = PADDING;
 
         if (_propertyPanel != null) {
             _propertyPanel.width = PROPERTY_PANEL_WIDTH;
-            _propertyPanel.height = h - 20;
+            _propertyPanel.height = h - (PADDING * 2);
         }
 
         if (_component != null) {
@@ -197,8 +199,8 @@ class Designer extends Sprite {
 
         _propertyPanel = new PropertyPanel(this._propertyPanelHolder);
         _propertyPanel.attach(_component, properties);
-        _propertyPanel.width = 200;
-        _propertyPanel.height = _height - 20;
+        _propertyPanel.width = PROPERTY_PANEL_WIDTH;
+        _propertyPanel.height = _height - (PADDING * 2);
     }
 
     /**
