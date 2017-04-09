@@ -1,45 +1,50 @@
 package minimalcomps.designer;
 
-import minimalcomps.components.Window;
-import minimalcomps.components.WheelMenu;
-import minimalcomps.components.VUISlider;
-import minimalcomps.components.VSlider;
-import minimalcomps.components.VScrollBar;
-import minimalcomps.components.VRangeSlider;
-import minimalcomps.components.VBox;
-import minimalcomps.components.UISlider;
-import minimalcomps.components.TextArea;
-import minimalcomps.components.Text;
-import minimalcomps.components.Slider;
-import minimalcomps.components.ScrollPane;
-import minimalcomps.components.ScrollBar;
-import minimalcomps.components.RotarySelector;
-import minimalcomps.components.RangeSlider;
-import minimalcomps.components.RadioButton;
-import minimalcomps.components.ProgressBar;
-import minimalcomps.components.Panel;
-import minimalcomps.components.NumericStepper;
-import minimalcomps.components.Meter;
-import minimalcomps.components.ListItem;
-import minimalcomps.components.Label;
-import minimalcomps.components.Knob;
-import minimalcomps.components.InputText;
-import minimalcomps.components.HRangeSlider;
-import minimalcomps.components.HSlider;
-import minimalcomps.components.IndicatorLight;
-import minimalcomps.components.HUISlider;
-import minimalcomps.components.HScrollBar;
-import minimalcomps.components.HBox;
-import minimalcomps.components.ComboBox;
-import minimalcomps.components.ColorChooser;
-import minimalcomps.components.CheckBox;
 import minimalcomps.components.Accordion;
 import minimalcomps.components.Calendar;
-import openfl.display.DisplayObject;
+import minimalcomps.components.ColorChooser;
+import minimalcomps.components.ComboBox;
+import minimalcomps.components.Component;
+import minimalcomps.components.CheckBox;
 import minimalcomps.components.FPSMeter;
+import minimalcomps.components.HBox;
+import minimalcomps.components.HRangeSlider;
+import minimalcomps.components.HScrollBar;
+import minimalcomps.components.HSlider;
+import minimalcomps.components.HUISlider;
+import minimalcomps.components.IndicatorLight;
+import minimalcomps.components.InputText;
+import minimalcomps.components.Knob;
+import minimalcomps.components.Label;
 import minimalcomps.components.List;
+import minimalcomps.components.ListItem;
+import minimalcomps.components.Meter;
+import minimalcomps.components.NumericStepper;
+import minimalcomps.components.Panel;
 import minimalcomps.components.PushButton;
+import minimalcomps.components.ProgressBar;
+import minimalcomps.components.RadioButton;
+import minimalcomps.components.RangeSlider;
+import minimalcomps.components.RotarySelector;
+import minimalcomps.components.ScrollBar;
+import minimalcomps.components.ScrollPane;
+import minimalcomps.components.Slider;
 import minimalcomps.components.Style;
+import minimalcomps.components.Text;
+import minimalcomps.components.TextArea;
+import minimalcomps.components.UISlider;
+import minimalcomps.components.VBox;
+import minimalcomps.components.VRangeSlider;
+import minimalcomps.components.VScrollBar;
+import minimalcomps.components.VSlider;
+import minimalcomps.components.VUISlider;
+import minimalcomps.components.WheelMenu;
+import minimalcomps.components.Window;
+
+import minimalcomps.designer.panel.LabelPropertyPanel;
+import minimalcomps.designer.panel.MeterPropertyPanel;
+import minimalcomps.designer.panel.PropertyPanel;
+
 import openfl.Assets;
 import openfl.display.Sprite;
 import openfl.events.Event;
@@ -56,8 +61,10 @@ class Designer extends Sprite {
     //------------------------------
 
     private var _componentList:List;
+    private var _component:Component;
     private var _componentHolder:Sprite;
-    private var _component:DisplayObject;
+    private var _propertyPanel:PropertyPanel;
+    private var _propertyPanelHolder:Sprite;
     private var _width:Float;
     private var _height:Float;
 
@@ -110,10 +117,10 @@ class Designer extends Sprite {
         _componentList.addItem({label: "Indicator Light", type: IndicatorLight});
         _componentList.addItem({label: "Input Text", type: InputText});
         _componentList.addItem({label: "Knob", type: Knob});
-        _componentList.addItem({label: "Label", type: Label});
+        _componentList.addItem({label: "Label", type: Label, panel: LabelPropertyPanel});
         _componentList.addItem({label: "List", type: List});
         _componentList.addItem({label: "List Item", type: ListItem});
-        _componentList.addItem({label: "Meter", type: Meter});
+        _componentList.addItem({label: "Meter", type: Meter, panel: MeterPropertyPanel});
         _componentList.addItem({label: "Numeric Stepper", type: NumericStepper});
         _componentList.addItem({label: "Panel", type: Panel});
         _componentList.addItem({label: "Progress Bar", type: ProgressBar});
@@ -138,6 +145,9 @@ class Designer extends Sprite {
 
         _componentHolder = new Sprite();
         addChild(_componentHolder);
+
+        _propertyPanelHolder = new Sprite();
+        addChild(_propertyPanelHolder);
     }
 
     public function resize(w:Float, h:Float):Void {
@@ -146,8 +156,16 @@ class Designer extends Sprite {
 
         _componentList.x = 10;
         _componentList.y = 10;
-        _componentList.width = w * 0.25;
+        _componentList.width = 150;
         _componentList.height = h - 20;
+
+        _propertyPanelHolder.x = w - 210;
+        _propertyPanelHolder.y = 10;
+
+        if (_propertyPanel != null) {
+            _propertyPanel.width = 200;
+            _propertyPanel.height = h - 20;
+        }
 
         if (_component != null) {
             _component.x = (w * 0.5) - (_component.width * 0.5);
@@ -158,6 +176,7 @@ class Designer extends Sprite {
     private function componentSelectHandler(event:Event):Void {
         trace("Selected: " + _componentList.selectedItem.label);
         displayComponent(_componentList.selectedItem.type);
+        displayPropertyPanel(_componentList.selectedItem.panel);
     }
 
     private function displayComponent<T>(type:Class<T>):Void {
@@ -168,6 +187,24 @@ class Designer extends Sprite {
         _component = cast Type.createInstance(type, [this._componentHolder]);
         _component.x = (_width * 0.5) - (_component.width * 0.5);
         _component.y = (_height * 0.5) - (_component.height * 0.5);
+    }
+
+    private function displayPropertyPanel<T>(type:Class<T>):Void {
+
+        trace("YESLDKJFSDF?");
+
+
+        while (_propertyPanelHolder.numChildren > 0) {
+            _propertyPanelHolder.removeChildAt(0);
+        }
+
+        if (type == null)
+            return;
+
+        _propertyPanel = cast Type.createInstance(type, [this._propertyPanelHolder]);
+        _propertyPanel.component = _component;
+        _propertyPanel.width = 200;
+        _propertyPanel.height = _height - 20;
     }
 
     /**
