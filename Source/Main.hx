@@ -7,7 +7,6 @@ import openfl.display.StageAlign;
 import openfl.events.Event;
 
 
-
 class Main extends Sprite {
 
     //------------------------------
@@ -32,10 +31,6 @@ class Main extends Sprite {
      */
     public function initialize():Void {
         addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-
-        designer = new Designer();
-
-
     }
 
     /**
@@ -49,13 +44,17 @@ class Main extends Sprite {
         stage.scaleMode = StageScaleMode.NO_SCALE;
         stage.align = StageAlign.TOP_LEFT;
 
+        designer = new Designer();
         addChild(designer);
+
+        stage.dispatchEvent(new Event(Event.RESIZE));
     }
 
     /**
      * resizeHandler
      */
     private function resizeHandler(event:Event):Void {
+        designer.resize(stage.stageWidth, stage.stageHeight);
     }
 
     /**
