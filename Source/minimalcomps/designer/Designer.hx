@@ -106,7 +106,7 @@ class Designer extends Sprite {
         _componentList = new List(this);
         _componentList.addItem({label: "Accordion", type: Accordion});
         _componentList.addItem({label: "Calendar", type: Calendar});
-        _componentList.addItem({label: "Check Box", type: CheckBox});
+        _componentList.addItem({label: "Check Box", type: CheckBox, props: ["label", "selected"]});
         _componentList.addItem({label: "Color Chooser", type: ColorChooser});
         _componentList.addItem({label: "Combo Box", type: ComboBox});
         _componentList.addItem({label: "FPS Meter", type: FPSMeter});
@@ -115,7 +115,7 @@ class Designer extends Sprite {
         _componentList.addItem({label: "H Scroll Bar", type: HScrollBar});
         _componentList.addItem({label: "H Slider", type: HSlider});
         _componentList.addItem({label: "H UI Slider", type: HUISlider});
-        _componentList.addItem({label: "Indicator Light", type: IndicatorLight});
+        _componentList.addItem({label: "Indicator Light", type: IndicatorLight, props: ["label", "color", "isLit", "flash"]});
         _componentList.addItem({label: "Input Text", type: InputText});
         _componentList.addItem({label: "Knob", type: Knob});
         _componentList.addItem({label: "Label", type: Label});
