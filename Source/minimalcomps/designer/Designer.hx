@@ -43,13 +43,10 @@ import minimalcomps.components.Window;
 
 import minimalcomps.designer.panel.PropertyPanel;
 
-import openfl.Assets;
 import openfl.display.Sprite;
 import openfl.events.Event;
-import openfl.text.Font;
 
 
-@:font("Assets/Fonts/pf_ronda_seven.ttf") private class RondaSevenFont extends Font {}
 
 
 class Designer extends Sprite {
@@ -86,13 +83,6 @@ class Designer extends Sprite {
      */
     public function initialize():Void {
         addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-
-        #if js
-        Style.fontName = Assets.getFont("pf_ronda_seven").fontName;
-        #else
-        Font.registerFont(RondaSevenFont);
-        Style.fontName = (new RondaSevenFont()).fontName;
-        #end
 
         Style.setStyle(Style.DARK);
         Style.fontSize = 9;

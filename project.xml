@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
-	
-	<meta title="Minimalcomps OpenFL Designer" package="com.jasonsturges.labs.minimalcompsopenfldesigner" version="1.0.0" company="Jason Sturges" />
-	<app main="Main" path="Export" file="MinimalcompsOpenflDesigner" />
-	
-	<source path="Source" />
 
-	<haxelib name="format" if="html5"/>
-	<haxelib name="openfl" />
-	<haxelib name="minimalcomps" />
-	
-	<assets path="Assets" rename="assets" />
-	<assets path="Assets/Fonts" rename="fonts" if="html5">
-		<font path="pf_ronda_seven.ttf" id="pf_ronda_seven" />
-	</assets>
-	<icon path="Assets/openfl.svg"/>
+    <meta title="MinimalComps OpenFL Designer" package="com.jasonsturges.labs.minimalcompsopenfldesigner"
+          version="1.0.0" company="Jason Sturges"/>
+    <app main="Main" path="Export" file="MinimalCompsOpenflDesigner"/>
 
-	<haxedef name="source-map-content" if="html5"/>
+    <source path="Source"/>
 
-	<haxeflag name="-swf-version" value="11.3"/>
+    <haxelib name="format" if="html5"/>
+    <haxelib name="openfl"/>
+    <haxelib name="minimalcomps"/>
 
-	<window width="1280" height="720" if="desktop"/>
-	<window width="0" height="0" if="html5"/>
-	<window orientation="landscape" vsync="true" if="cpp"/>
-	<window fps="60" hardware="true" allow-shaders="true" require-shaders="true" depth-buffer="true"
-			stencil-buffer="true" background="#242424"/>
-	
+    <assets path="Assets" rename="assets"/>
+    <icon path="Assets/openfl.svg"/>
+
+    <haxedef name="source-map-content" if="html5"/>
+
+    <haxeflag name="-swf-version" value="11.3"/>
+
+    <window width="1280" height="720" if="desktop"/>
+    <window width="0" height="0" if="html5"/>
+    <window orientation="landscape" vsync="true" if="cpp"/>
+    <window fps="60" hardware="true" allow-shaders="true" require-shaders="true" depth-buffer="true"
+            stencil-buffer="true" background="#242424"/>
+
 </project>
