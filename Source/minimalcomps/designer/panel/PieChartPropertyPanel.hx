@@ -14,12 +14,16 @@ class PieChartPropertyPanel extends PropertyPanel {
     //  model
     //------------------------------
 
+    private var _pieChart:PieChart;
+
 
     //------------------------------
     //  lifecycle
     //------------------------------
 
     public function new(component:Component, parent:DisplayObjectContainer = null, xpos:Float = 0.0, ypos:Float = 0.0) {
+        _pieChart = cast component;
+
         super(component, parent, xpos, ypos);
     }
 
@@ -30,8 +34,7 @@ class PieChartPropertyPanel extends PropertyPanel {
     override public function initialize():Void {
         super.initialize();
         
-        var chart:PieChart = cast _component;
-        chart.data = DataProvider.randomDistribution();
+        _pieChart.data = DataProvider.randomDistribution();
     }
 
     override public function dispose():Void {

@@ -14,12 +14,16 @@ class BarChartPropertyPanel extends PropertyPanel {
     //  model
     //------------------------------
 
+    private var _barChart:BarChart;
+
 
     //------------------------------
     //  lifecycle
     //------------------------------
 
     public function new(component:Component, parent:DisplayObjectContainer = null, xpos:Float = 0.0, ypos:Float = 0.0) {
+        _barChart = cast component;
+
         super(component, parent, xpos, ypos);
     }
 
@@ -30,8 +34,7 @@ class BarChartPropertyPanel extends PropertyPanel {
     override public function initialize():Void {
         super.initialize();
         
-        var chart:BarChart = cast _component;
-        chart.data = DataProvider.randomSeries();
+        _barChart.data = DataProvider.randomSeries();
     }
 
     override public function dispose():Void {

@@ -1,19 +1,20 @@
 package minimalcomps.designer.panel;
 
 import minimalcomps.components.Component;
-import minimalcomps.components.Label;
+import minimalcomps.components.Window;
 import minimalcomps.designer.panel.property.CheckBoxProperty;
+import minimalcomps.designer.panel.property.ColorChooserProperty;
 import minimalcomps.designer.panel.property.InputTextProperty;
 import openfl.display.DisplayObjectContainer;
 
 
-class LabelPropertyPanel extends PropertyPanel {
+class WindowPropertyPanel extends PropertyPanel {
 
     //------------------------------
     //  model
     //------------------------------
 
-    private var _label:Label;
+    private var _window:Window;
 
 
     //------------------------------
@@ -21,7 +22,7 @@ class LabelPropertyPanel extends PropertyPanel {
     //------------------------------
 
     public function new(component:Component, parent:DisplayObjectContainer = null, xpos:Float = 0.0, ypos:Float = 0.0) {
-        _label = cast component;
+        _window = cast component;
 
         super(component, parent, xpos, ypos);
     }
@@ -29,14 +30,18 @@ class LabelPropertyPanel extends PropertyPanel {
     override private function addChildren() {
         super.addChildren();
 
-        _properties.push(new InputTextProperty("text", _label.text, _vbox));
-        _properties.push(new CheckBoxProperty("autoSize", _label.autoSize, _vbox));
+        _properties.push(new InputTextProperty("title", _window.title, _vbox));
+        _properties.push(new CheckBoxProperty("hasCloseButton", _window.hasCloseButton, _vbox));
+        _properties.push(new CheckBoxProperty("hasMinimizeButton", _window.hasMinimizeButton, _vbox));
+        _properties.push(new CheckBoxProperty("draggable", _window.draggable, _vbox));
+        _properties.push(new CheckBoxProperty("shadow", _window.shadow, _vbox));
+        _properties.push(new ColorChooserProperty("color", _window.color, _vbox));
     }
 
     override public function initialize():Void {
         super.initialize();
 
-        _label.text = "label text";
+        _window.title = "Title text";
     }
 
     override public function dispose():Void {

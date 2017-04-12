@@ -3,25 +3,39 @@ package minimalcomps.designer.ui;
 import minimalcomps.charts.BarChart;
 import minimalcomps.charts.LineChart;
 import minimalcomps.charts.PieChart;
+import minimalcomps.components.Accordion;
 import minimalcomps.components.CheckBox;
+import minimalcomps.components.ColorChooser;
+import minimalcomps.components.ComboBox;
 import minimalcomps.components.Component;
+import minimalcomps.components.FPSMeter;
+import minimalcomps.components.HRangeSlider;
 import minimalcomps.components.IndicatorLight;
 import minimalcomps.components.Knob;
 import minimalcomps.components.Label;
 import minimalcomps.components.Meter;
+import minimalcomps.components.RangeSlider;
 import minimalcomps.components.ScrollPane;
 import minimalcomps.components.VBox;
+import minimalcomps.components.VRangeSlider;
 import minimalcomps.components.WheelMenu;
+import minimalcomps.components.Window;
+import minimalcomps.designer.panel.AccordionPropertyPanel;
 import minimalcomps.designer.panel.BarChartPropertyPanel;
 import minimalcomps.designer.panel.PropertyPanel;
 import minimalcomps.designer.panel.CheckBoxPropertyPanel;
+import minimalcomps.designer.panel.ColorChooserPropertyPanel;
+import minimalcomps.designer.panel.ComboBoxPropertyPanel;
+import minimalcomps.designer.panel.FPSMeterPropertyPanel;
 import minimalcomps.designer.panel.IndicatorLightPropertyPanel;
 import minimalcomps.designer.panel.KnobPropertyPanel;
 import minimalcomps.designer.panel.LabelPropertyPanel;
 import minimalcomps.designer.panel.LineChartPropertyPanel;
 import minimalcomps.designer.panel.MeterPropertyPanel;
 import minimalcomps.designer.panel.PieChartPropertyPanel;
+import minimalcomps.designer.panel.RangeSliderPropertyPanel;
 import minimalcomps.designer.panel.WheelMenuPropertyPanel;
+import minimalcomps.designer.panel.WindowPropertyPanel;
 import openfl.display.DisplayObjectContainer;
 
 
@@ -62,10 +76,20 @@ class ComponentProperties extends ScrollPane {
         var panel:PropertyPanel;
 
         switch(Type.getClass(_component)) {
+            case Accordion:
+                panel = new AccordionPropertyPanel(_component, _vbox);
             case BarChart:
                 panel = new BarChartPropertyPanel(_component, _vbox);
             case CheckBox:
                 panel = new CheckBoxPropertyPanel(_component, _vbox);
+            case ComboBox:
+                panel = new ComboBoxPropertyPanel(_component, _vbox);
+            case ColorChooser:
+                panel = new ColorChooserPropertyPanel(_component, _vbox);
+            case FPSMeter:
+                panel = new FPSMeterPropertyPanel(_component, _vbox);
+            case HRangeSlider:
+                panel = new RangeSliderPropertyPanel(_component, _vbox);
             case IndicatorLight:
                 panel = new IndicatorLightPropertyPanel(_component, _vbox);
             case Knob:
@@ -78,8 +102,14 @@ class ComponentProperties extends ScrollPane {
                 panel = new LineChartPropertyPanel(_component, _vbox);
             case PieChart:
                 panel = new PieChartPropertyPanel(_component, _vbox);
+            case RangeSlider:
+                panel = new RangeSliderPropertyPanel(_component, _vbox);
+            case VRangeSlider:
+                panel = new RangeSliderPropertyPanel(_component, _vbox);
             // case WheelMenu:
                 // panel = new WheelMenuPropertyPanel(_component, _vbox);
+            case Window:
+                panel = new WindowPropertyPanel(_component, _vbox);
 
             default:
                 panel = new PropertyPanel(_component, _vbox);

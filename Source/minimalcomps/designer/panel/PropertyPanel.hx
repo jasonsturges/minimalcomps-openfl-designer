@@ -8,6 +8,12 @@ import minimalcomps.designer.panel.property.NumericStepperProperty;
 import openfl.display.DisplayObjectContainer;
 
 
+/**
+ *  Generic property panel, adding standard `DisplayObject` properties
+ *  such as `x`, `y`, `width`, `height`, `scaleX`, and `scaleY`.
+ *  
+ *  Also used when no component-specific property panel is availble.
+ */
 class PropertyPanel extends Panel {
 
     //------------------------------

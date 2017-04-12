@@ -14,12 +14,16 @@ class LineChartPropertyPanel extends PropertyPanel {
     //  model
     //------------------------------
 
+    private var _lineChart:LineChart;
+
 
     //------------------------------
     //  lifecycle
     //------------------------------
 
     public function new(component:Component, parent:DisplayObjectContainer = null, xpos:Float = 0.0, ypos:Float = 0.0) {
+        _lineChart = cast component;
+
         super(component, parent, xpos, ypos);
     }
 
@@ -30,8 +34,7 @@ class LineChartPropertyPanel extends PropertyPanel {
     override public function initialize():Void {
         super.initialize();
         
-        var chart:LineChart = cast _component;
-        chart.data = DataProvider.randomSeries();
+        _lineChart.data = DataProvider.randomSeries();
     }
 
     override public function dispose():Void {

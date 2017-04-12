@@ -31,6 +31,7 @@ class ColorChooserProperty extends AbstractProperty {
 
         _component = new ColorChooser(this);
         _component.value = _value;
+        _component.usePopup = true;
 
         _component.addEventListener(Event.CHANGE, changeHandler);
     }
