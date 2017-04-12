@@ -43,6 +43,9 @@ class ComponentViewer extends ScrollPane {
 
         _component = component;
         addChild(component);
+
+        component.x = (width * 0.5) - (component.width * 0.5);
+        component.y = (height * 0.5) - (component.height * 0.5);
     }
 
 }
