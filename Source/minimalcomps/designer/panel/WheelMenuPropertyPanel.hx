@@ -1,13 +1,13 @@
 package minimalcomps.designer.panel;
 
 import minimalcomps.components.Component;
-import minimalcomps.components.Knob;
+import minimalcomps.components.WheelMenu;
 import minimalcomps.designer.panel.property.InputTextProperty;
 import minimalcomps.designer.panel.property.NumericStepperProperty;
 import openfl.display.DisplayObjectContainer;
 
 
-class KnobPropertyPanel extends PropertyPanel {
+class WheelMenuPropertyPanel extends PropertyPanel {
 
     //------------------------------
     //  model
@@ -24,17 +24,17 @@ class KnobPropertyPanel extends PropertyPanel {
 
     override private function addChildren() {
         super.addChildren();
-
-        var knob:Knob = cast _component;
-        
-        _properties.push(new InputTextProperty("label", "", _vbox));
-        _properties.push(new NumericStepperProperty("value", knob.value, 0, 100, _vbox));
-        _properties.push(new NumericStepperProperty("minimum", knob.minimum, 0, 100, _vbox));
-        _properties.push(new NumericStepperProperty("maximum", knob.maximum, 0, 100, _vbox));
     }
 
     override public function initialize():Void {
         super.initialize();
+        
+        var wheelMenu:WheelMenu = cast _component;
+        wheelMenu.setItem(1, "One", "One");
+        wheelMenu.setItem(2, "Two", "Two");
+        wheelMenu.setItem(3, "Three", "Three");
+        wheelMenu.setItem(4, "Four", "Four");
+        wheelMenu.setItem(5, "Five", "Five");
     }
 
     override public function dispose():Void {

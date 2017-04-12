@@ -1,13 +1,13 @@
 package minimalcomps.designer.panel;
 
 import minimalcomps.components.Component;
-import minimalcomps.components.Knob;
+import minimalcomps.components.Meter;
 import minimalcomps.designer.panel.property.InputTextProperty;
 import minimalcomps.designer.panel.property.NumericStepperProperty;
 import openfl.display.DisplayObjectContainer;
 
 
-class KnobPropertyPanel extends PropertyPanel {
+class MeterPropertyPanel extends PropertyPanel {
 
     //------------------------------
     //  model
@@ -25,16 +25,19 @@ class KnobPropertyPanel extends PropertyPanel {
     override private function addChildren() {
         super.addChildren();
 
-        var knob:Knob = cast _component;
-        
-        _properties.push(new InputTextProperty("label", "", _vbox));
-        _properties.push(new NumericStepperProperty("value", knob.value, 0, 100, _vbox));
-        _properties.push(new NumericStepperProperty("minimum", knob.minimum, 0, 100, _vbox));
-        _properties.push(new NumericStepperProperty("maximum", knob.maximum, 0, 100, _vbox));
+        var meter:Meter = cast _component;
+
+        _properties.push(new InputTextProperty("label", meter.label, _vbox));
+        _properties.push(new NumericStepperProperty("value", meter.value, 0, 100, _vbox));
+        _properties.push(new NumericStepperProperty("minimum", meter.minimum, 0, 100, _vbox));
+        _properties.push(new NumericStepperProperty("maximum", meter.maximum, 0, 100, _vbox));
     }
 
     override public function initialize():Void {
         super.initialize();
+
+        var meter:Meter = cast _component;
+        meter.label = "label text";
     }
 
     override public function dispose():Void {
