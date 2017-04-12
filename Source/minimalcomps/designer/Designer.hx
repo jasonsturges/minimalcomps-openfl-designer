@@ -1,52 +1,15 @@
 package minimalcomps.designer;
 
-import minimalcomps.components.Accordion;
-import minimalcomps.components.Calendar;
-import minimalcomps.components.ColorChooser;
-import minimalcomps.components.ComboBox;
 import minimalcomps.components.Component;
-import minimalcomps.components.CheckBox;
-import minimalcomps.components.FPSMeter;
-import minimalcomps.components.HBox;
-import minimalcomps.components.HRangeSlider;
-import minimalcomps.components.HScrollBar;
-import minimalcomps.components.HSlider;
-import minimalcomps.components.HUISlider;
-import minimalcomps.components.IndicatorLight;
-import minimalcomps.components.InputText;
-import minimalcomps.components.Knob;
-import minimalcomps.components.Label;
-import minimalcomps.components.List;
-import minimalcomps.components.ListItem;
-import minimalcomps.components.Meter;
-import minimalcomps.components.NumericStepper;
-import minimalcomps.components.Panel;
-import minimalcomps.components.PushButton;
-import minimalcomps.components.ProgressBar;
-import minimalcomps.components.RadioButton;
-import minimalcomps.components.RangeSlider;
-import minimalcomps.components.RotarySelector;
-import minimalcomps.components.ScrollBar;
-import minimalcomps.components.ScrollPane;
-import minimalcomps.components.Slider;
 import minimalcomps.components.Style;
-import minimalcomps.components.Text;
-import minimalcomps.components.TextArea;
-import minimalcomps.components.UISlider;
-import minimalcomps.components.VBox;
-import minimalcomps.components.VRangeSlider;
-import minimalcomps.components.VScrollBar;
-import minimalcomps.components.VSlider;
-import minimalcomps.components.VUISlider;
-import minimalcomps.components.WheelMenu;
-import minimalcomps.components.Window;
-
+import minimalcomps.designer.event.ComponentEvent;
+import minimalcomps.designer.event.PropertyEvent;
 import minimalcomps.designer.panel.PropertyPanel;
-
+import minimalcomps.designer.ui.ComponentLibrary;
+import minimalcomps.designer.ui.ComponentProperties;
+import minimalcomps.designer.ui.ComponentViewer;
 import openfl.display.Sprite;
 import openfl.events.Event;
-
-
 
 
 class Designer extends Sprite {
@@ -59,11 +22,10 @@ class Designer extends Sprite {
     public static inline var PROPERTY_PANEL_WIDTH:Int = 250;
     public static inline var PADDING:Int = 4;
 
-    private var _componentList:List;
     private var _component:Component;
-    private var _componentHolder:Sprite;
-    private var _propertyPanel:PropertyPanel;
-    private var _propertyPanelHolder:Sprite;
+    private var _componentLibrary:ComponentLibrary;
+    private var _componentProperties:ComponentProperties;
+    private var _componentViewer:ComponentViewer;
     private var _width:Float;
     private var _height:Float;
 
@@ -85,7 +47,6 @@ class Designer extends Sprite {
         addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 
         Style.setStyle(Style.DARK);
-        Style.fontSize = 9;
     }
 
     /**
@@ -95,102 +56,47 @@ class Designer extends Sprite {
         removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
         addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
 
-        _componentList = new List(this);
-        _componentList.addItem({label: "Accordion", type: Accordion});
-        _componentList.addItem({label: "Calendar", type: Calendar});
-        _componentList.addItem({label: "Check Box", type: CheckBox, props: ["label", "selected"]});
-        _componentList.addItem({label: "Color Chooser", type: ColorChooser});
-        _componentList.addItem({label: "Combo Box", type: ComboBox});
-        _componentList.addItem({label: "FPS Meter", type: FPSMeter});
-        _componentList.addItem({label: "H Box", type: HBox});
-        _componentList.addItem({label: "H Range Slider", type: HRangeSlider});
-        _componentList.addItem({label: "H Scroll Bar", type: HScrollBar});
-        _componentList.addItem({label: "H Slider", type: HSlider});
-        _componentList.addItem({label: "H UI Slider", type: HUISlider});
-        _componentList.addItem({label: "Indicator Light", type: IndicatorLight, props: ["label", "color", "isLit", "flash"]});
-        _componentList.addItem({label: "Input Text", type: InputText});
-        _componentList.addItem({label: "Knob", type: Knob});
-        _componentList.addItem({label: "Label", type: Label});
-        _componentList.addItem({label: "List", type: List});
-        _componentList.addItem({label: "List Item", type: ListItem});
-        _componentList.addItem({label: "Meter", type: Meter, props: ["value", "minimum", "maximum"]});
-        _componentList.addItem({label: "Numeric Stepper", type: NumericStepper});
-        _componentList.addItem({label: "Panel", type: Panel});
-        _componentList.addItem({label: "Progress Bar", type: ProgressBar});
-        _componentList.addItem({label: "Push Button", type: PushButton});
-        _componentList.addItem({label: "Radio Button", type: RadioButton});
-        _componentList.addItem({label: "Range Slider", type: RangeSlider});
-        _componentList.addItem({label: "Rotary Selector", type: RotarySelector});
-        _componentList.addItem({label: "Scroll Bar", type: ScrollBar});
-        _componentList.addItem({label: "Scroll Pane", type: ScrollPane});
-        _componentList.addItem({label: "Slider", type: Slider});
-        _componentList.addItem({label: "Text", type: Text});
-        _componentList.addItem({label: "Text Area", type: TextArea});
-        _componentList.addItem({label: "UI Slider", type: UISlider});
-        _componentList.addItem({label: "V Box", type: VBox});
-        _componentList.addItem({label: "V Range Slider", type: VRangeSlider});
-        _componentList.addItem({label: "V Scroll Bar", type: VScrollBar});
-        _componentList.addItem({label: "V Slider", type: VSlider});
-        _componentList.addItem({label: "V UI Slider", type: VUISlider});
-        _componentList.addItem({label: "Wheel Menu", type: WheelMenu});
-        _componentList.addItem({label: "Window", type: Window});
-        _componentList.addEventListener(Event.SELECT, componentSelectHandler);
+        _componentLibrary = new ComponentLibrary(this);
+        _componentLibrary.addEventListener(ComponentEvent.CHANGE, componentChangeHandler);
 
-        _componentHolder = new Sprite();
-        addChild(_componentHolder);
+        _componentViewer = new ComponentViewer(this);
 
-        _propertyPanelHolder = new Sprite();
-        addChild(_propertyPanelHolder);
+        _componentProperties = new ComponentProperties(this);
+        _componentProperties.addEventListener(PropertyEvent.CHANGE, propertyChangeHandler);
     }
 
     public function resize(w:Float, h:Float):Void {
         _width = w;
         _height = h;
 
-        _componentList.x = PADDING;
-        _componentList.y = PADDING;
-        _componentList.width = COMPONENT_LIST_WIDTH;
-        _componentList.height = h - (PADDING * 2);
+        _componentLibrary.x = PADDING;
+        _componentLibrary.y = PADDING;
+        _componentLibrary.width = COMPONENT_LIST_WIDTH;
+        _componentLibrary.height = h - (PADDING * 2);
 
-        _propertyPanelHolder.x = w - PROPERTY_PANEL_WIDTH - 4;
-        _propertyPanelHolder.y = PADDING;
+        _componentViewer.x = COMPONENT_LIST_WIDTH + (PADDING * 2);
+        _componentViewer.y = PADDING;
+        _componentViewer.width = w - COMPONENT_LIST_WIDTH - PROPERTY_PANEL_WIDTH - (PADDING * 4);
+        _componentViewer.height = h - (PADDING * 2);
 
-        if (_propertyPanel != null) {
-            _propertyPanel.width = PROPERTY_PANEL_WIDTH;
-            _propertyPanel.height = h - (PADDING * 2);
-        }
-
-        if (_component != null) {
-            _component.x = (w * 0.5) - (_component.width * 0.5) - ((PROPERTY_PANEL_WIDTH - COMPONENT_LIST_WIDTH) * 0.5);
-            _component.y = (h * 0.5) - (_component.height * 0.5);
-        }
+        _componentProperties.x = w - PROPERTY_PANEL_WIDTH - 4;
+        _componentProperties.y = PADDING;
+        _componentProperties.width = PROPERTY_PANEL_WIDTH;
+        _componentProperties.height = h - (PADDING * 2);
     }
 
-    private function componentSelectHandler(event:Event):Void {
-        trace("Selected: " + _componentList.selectedItem.label);
-        displayComponent(_componentList.selectedItem.type);
-        displayPropertyPanel(_componentList.selectedItem.props);
+    private function componentChangeHandler<T>(event:ComponentEvent<T>):Void {
+        displayComponent(event.classType);
     }
 
     private function displayComponent<T>(type:Class<T>):Void {
-        while (_componentHolder.numChildren > 0) {
-            _componentHolder.removeChildAt(0);
-        }
-
-        _component = cast Type.createInstance(type, [this._componentHolder]);
-        _component.x = (_width * 0.5) - (_component.width * 0.5) - ((PROPERTY_PANEL_WIDTH - COMPONENT_LIST_WIDTH) * 0.5);
-        _component.y = (_height * 0.5) - (_component.height * 0.5);
+        _component = cast Type.createInstance(type, []);
+        _componentViewer.bind(_component);
+        _componentProperties.bind(_component);
     }
 
-    private function displayPropertyPanel(properties:Array<String>):Void {
-        while (_propertyPanelHolder.numChildren > 0) {
-            _propertyPanelHolder.removeChildAt(0);
-        }
-
-        _propertyPanel = new PropertyPanel(this._propertyPanelHolder);
-        _propertyPanel.attach(_component, properties);
-        _propertyPanel.width = PROPERTY_PANEL_WIDTH;
-        _propertyPanel.height = _height - (PADDING * 2);
+    private function propertyChangeHandler<T>(event:PropertyEvent<T>):Void {
+        Reflect.setProperty(_component, event.name, event.value);
     }
 
     /**
@@ -199,8 +105,6 @@ class Designer extends Sprite {
     private function removedFromStageHandler(event:Event):Void {
         removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
         addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-
-        _componentList.removeEventListener(Event.SELECT, componentSelectHandler);
     }
 
     /**
