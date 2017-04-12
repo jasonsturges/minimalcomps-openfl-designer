@@ -27,9 +27,9 @@ class PropertyPanel extends Panel {
         _component = component;
         _properties = [];
 
-        super(parent, xpos, ypos);
-
         initialize();
+
+        super(parent, xpos, ypos);
     }
 
     override private function addChildren() {

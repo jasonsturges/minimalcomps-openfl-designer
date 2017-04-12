@@ -5,13 +5,17 @@ import minimalcomps.charts.LineChart;
 import minimalcomps.charts.PieChart;
 import minimalcomps.components.CheckBox;
 import minimalcomps.components.Component;
+import minimalcomps.components.IndicatorLight;
 import minimalcomps.components.Knob;
+import minimalcomps.components.Label;
 import minimalcomps.components.ScrollPane;
 import minimalcomps.components.VBox;
 import minimalcomps.designer.panel.BarChartPropertyPanel;
 import minimalcomps.designer.panel.PropertyPanel;
 import minimalcomps.designer.panel.CheckBoxPropertyPanel;
+import minimalcomps.designer.panel.IndicatorLightPropertyPanel;
 import minimalcomps.designer.panel.KnobPropertyPanel;
+import minimalcomps.designer.panel.LabelPropertyPanel;
 import minimalcomps.designer.panel.LineChartPropertyPanel;
 import minimalcomps.designer.panel.PieChartPropertyPanel;
 import openfl.display.DisplayObjectContainer;
@@ -58,8 +62,12 @@ class ComponentProperties extends ScrollPane {
                 panel = new BarChartPropertyPanel(_component, _vbox);
             case CheckBox:
                 panel = new CheckBoxPropertyPanel(_component, _vbox);
+            case IndicatorLight:
+                panel = new IndicatorLightPropertyPanel(_component, _vbox);
             case Knob:
                 panel = new KnobPropertyPanel(_component, _vbox);
+            case Label:
+                panel = new LabelPropertyPanel(_component, _vbox);
             case LineChart:
                 panel = new LineChartPropertyPanel(_component, _vbox);
             case PieChart:
