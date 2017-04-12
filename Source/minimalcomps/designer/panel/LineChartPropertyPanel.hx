@@ -1,12 +1,14 @@
 package minimalcomps.designer.panel;
 
+import minimalcomps.charts.LineChart;
 import minimalcomps.components.Component;
-import minimalcomps.designer.panel.property.CheckBoxProperty;
+import minimalcomps.designer.data.DataProvider;
 import minimalcomps.designer.panel.property.InputTextProperty;
+import minimalcomps.designer.panel.property.NumericStepperProperty;
 import openfl.display.DisplayObjectContainer;
 
 
-class CheckBoxPropertyPanel extends PropertyPanel {
+class LineChartPropertyPanel extends PropertyPanel {
 
     //------------------------------
     //  model
@@ -23,13 +25,13 @@ class CheckBoxPropertyPanel extends PropertyPanel {
 
     override private function addChildren() {
         super.addChildren();
-
-        _properties.push(new InputTextProperty("label", "", _vbox));
-        _properties.push(new CheckBoxProperty("selected", false, _vbox));
     }
 
     override public function initialize():Void {
         super.initialize();
+        
+        var chart:LineChart = cast _component;
+        chart.data = DataProvider.randomSeries();
     }
 
     override public function dispose():Void {

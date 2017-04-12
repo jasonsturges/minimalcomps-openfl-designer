@@ -15,15 +15,17 @@ class NumericStepperProperty extends AbstractProperty {
     private var _component:NumericStepper;
     private var _minimum:Float;
     private var _maximum:Float;
+    private var _value:Float;
 
 
     //------------------------------
     //  lifecycle
     //------------------------------
 
-    public function new(propertyName:String, minimum:Float = 0, maximum:Float = 100, parent:DisplayObjectContainer = null) {
+    public function new(propertyName:String, value:Float = 0, minimum:Float = 0, maximum:Float = 100, parent:DisplayObjectContainer = null) {
         _minimum = minimum;
         _maximum = maximum;
+        _value = value;
 
         super(propertyName, parent);
     }
@@ -34,6 +36,7 @@ class NumericStepperProperty extends AbstractProperty {
         _component = new NumericStepper(this);
         _component.minimum = _minimum;
         _component.maximum = _maximum;
+        _component.value = _value;
 
         _component.addEventListener(Event.CHANGE, changeHandler);
     }

@@ -28,22 +28,24 @@ class PropertyPanel extends Panel {
         _properties = [];
 
         super(parent, xpos, ypos);
+
+        initialize();
     }
 
     override private function addChildren() {
         super.addChildren();
 
-        _vbox = new VBox(this);
-        _vbox.width = this.width;
-        _vbox.height = this.height;
+        _vbox = new VBox(this, 4, 4);
+        _vbox.width = this.width - 8;
+        _vbox.height = this.height - 8;
 
         // Common properties
-        _properties.push(new NumericStepperProperty("x", 0, 1000, _vbox));
-        _properties.push(new NumericStepperProperty("y", 0, 1000, _vbox));
-        _properties.push(new NumericStepperProperty("width", 0, 1000, _vbox));
-        _properties.push(new NumericStepperProperty("height", 0, 1000, _vbox));
-        _properties.push(new NumericStepperProperty("scaleX", 0, 1000, _vbox));
-        _properties.push(new NumericStepperProperty("scaleY", 0, 1000, _vbox));
+        _properties.push(new NumericStepperProperty("x", _component.x, 0, 1000, _vbox));
+        _properties.push(new NumericStepperProperty("y", _component.y, 0, 1000, _vbox));
+        _properties.push(new NumericStepperProperty("width", _component.width, 0, 1000, _vbox));
+        _properties.push(new NumericStepperProperty("height", _component.height, 0, 1000, _vbox));
+        _properties.push(new NumericStepperProperty("scaleX", _component.scaleX, 1, 10, _vbox));
+        _properties.push(new NumericStepperProperty("scaleY", _component.scaleY, 1, 10, _vbox));
     }
 
     public function initialize():Void {

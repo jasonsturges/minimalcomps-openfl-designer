@@ -1,7 +1,6 @@
 package minimalcomps.designer.panel.property;
 
 import minimalcomps.components.InputText;
-import minimalcomps.components.NumericStepper;
 import minimalcomps.designer.event.PropertyEvent;
 import openfl.display.DisplayObjectContainer;
 import openfl.events.Event;

@@ -1,12 +1,13 @@
 package minimalcomps.designer.panel;
 
 import minimalcomps.components.Component;
-import minimalcomps.designer.panel.property.CheckBoxProperty;
+import minimalcomps.components.Knob;
 import minimalcomps.designer.panel.property.InputTextProperty;
+import minimalcomps.designer.panel.property.NumericStepperProperty;
 import openfl.display.DisplayObjectContainer;
 
 
-class CheckBoxPropertyPanel extends PropertyPanel {
+class KnobPropertyPanel extends PropertyPanel {
 
     //------------------------------
     //  model
@@ -24,8 +25,10 @@ class CheckBoxPropertyPanel extends PropertyPanel {
     override private function addChildren() {
         super.addChildren();
 
+        var knob:Knob = cast _component;
+
+        _properties.push(new NumericStepperProperty("value", knob.value, 0, 100, _vbox));
         _properties.push(new InputTextProperty("label", "", _vbox));
-        _properties.push(new CheckBoxProperty("selected", false, _vbox));
     }
 
     override public function initialize():Void {

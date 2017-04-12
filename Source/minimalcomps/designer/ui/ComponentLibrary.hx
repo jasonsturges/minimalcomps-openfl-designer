@@ -1,5 +1,8 @@
 package minimalcomps.designer.ui;
 
+import minimalcomps.charts.BarChart;
+import minimalcomps.charts.LineChart;
+import minimalcomps.charts.PieChart;
 import minimalcomps.components.Accordion;
 import minimalcomps.components.Calendar;
 import minimalcomps.components.ColorChooser;
@@ -70,9 +73,12 @@ class ComponentLibrary extends Panel {
         _titleLabel.text = "Library";
 
         _componentList = new List(this, 2, 30);
+        _componentList.addItem({label: "Bar Chart", type: BarChart});
+        _componentList.addItem({label: "Line Chart", type: LineChart});
+        _componentList.addItem({label: "Pie Chart", type: PieChart});
         _componentList.addItem({label: "Accordion", type: Accordion});
         _componentList.addItem({label: "Calendar", type: Calendar});
-        _componentList.addItem({label: "Check Box", type: CheckBox, props: ["label", "selected"]});
+        _componentList.addItem({label: "Check Box", type: CheckBox});
         _componentList.addItem({label: "Color Chooser", type: ColorChooser});
         _componentList.addItem({label: "Combo Box", type: ComboBox});
         _componentList.addItem({label: "FPS Meter", type: FPSMeter});
@@ -81,13 +87,13 @@ class ComponentLibrary extends Panel {
         _componentList.addItem({label: "H Scroll Bar", type: HScrollBar});
         _componentList.addItem({label: "H Slider", type: HSlider});
         _componentList.addItem({label: "H UI Slider", type: HUISlider});
-        _componentList.addItem({label: "Indicator Light", type: IndicatorLight, props: ["label", "color", "isLit", "flash"]});
+        _componentList.addItem({label: "Indicator Light", type: IndicatorLight});
         _componentList.addItem({label: "Input Text", type: InputText});
         _componentList.addItem({label: "Knob", type: Knob});
         _componentList.addItem({label: "Label", type: Label});
         _componentList.addItem({label: "List", type: List});
         _componentList.addItem({label: "List Item", type: ListItem});
-        _componentList.addItem({label: "Meter", type: Meter, props: ["value", "minimum", "maximum"]});
+        _componentList.addItem({label: "Meter", type: Meter});
         _componentList.addItem({label: "Numeric Stepper", type: NumericStepper});
         _componentList.addItem({label: "Panel", type: Panel});
         _componentList.addItem({label: "Progress Bar", type: ProgressBar});

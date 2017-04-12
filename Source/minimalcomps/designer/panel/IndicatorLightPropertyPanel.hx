@@ -1,12 +1,12 @@
 package minimalcomps.designer.panel;
 
 import minimalcomps.components.Component;
-import minimalcomps.designer.panel.property.CheckBoxProperty;
 import minimalcomps.designer.panel.property.InputTextProperty;
+import minimalcomps.designer.panel.property.NumericStepperProperty;
 import openfl.display.DisplayObjectContainer;
 
 
-class CheckBoxPropertyPanel extends PropertyPanel {
+class IndicatorLightPropertyPanel extends PropertyPanel {
 
     //------------------------------
     //  model
@@ -25,7 +25,6 @@ class CheckBoxPropertyPanel extends PropertyPanel {
         super.addChildren();
 
         _properties.push(new InputTextProperty("label", "", _vbox));
-        _properties.push(new CheckBoxProperty("selected", false, _vbox));
     }
 
     override public function initialize():Void {
