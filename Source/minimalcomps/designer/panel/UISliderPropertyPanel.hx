@@ -21,7 +21,7 @@ class UISliderPropertyPanel extends PropertyPanel {
     //------------------------------
 
     public function new(component:Component, parent:DisplayObjectContainer = null, xpos:Float = 0.0, ypos:Float = 0.0) {
-        _uiSlider = cast _component;
+        _uiSlider = cast component;
 
         super(component, parent, xpos, ypos);
     }
