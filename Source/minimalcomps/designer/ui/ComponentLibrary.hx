@@ -33,7 +33,6 @@ import minimalcomps.components.ScrollPane;
 import minimalcomps.components.Slider;
 import minimalcomps.components.Text;
 import minimalcomps.components.TextArea;
-import minimalcomps.components.UISlider;
 import minimalcomps.components.VBox;
 import minimalcomps.components.VRangeSlider;
 import minimalcomps.components.VScrollBar;
@@ -106,7 +105,6 @@ class ComponentLibrary extends Panel {
         _componentList.addItem({label: "Slider", type: Slider});
         _componentList.addItem({label: "Text", type: Text});
         _componentList.addItem({label: "Text Area", type: TextArea});
-        _componentList.addItem({label: "UI Slider", type: UISlider});
         _componentList.addItem({label: "V Box", type: VBox});
         _componentList.addItem({label: "V Range Slider", type: VRangeSlider});
         _componentList.addItem({label: "V Scroll Bar", type: VScrollBar});
