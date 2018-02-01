@@ -2,7 +2,7 @@
 
 This is a compendium project to the [minimalcomps](https://github.com/jasonsturges/minimalcomps-openfl) haxelib enabling exploration of available components.
 
-Launch demo: http://jasonsturges.com/minimalcomps-openfl-designer/
+Launch demo: http://labs.jasonsturges.com/haxe/openfl/minimalcomps-designer/
 
-![designer](http://labs.jasonsturges.com/openfl/minimalcomps/minimalcomps-designer.png)
+![screen-capture](http://labs.jasonsturges.com/haxe/openfl/minimalcomps-designer/screenshot.png)
 
