@@ -4,5 +4,4 @@ This is a compendium project to the [minimalcomps](https://github.com/jasonsturg
 
 Launch demo: https://jasonsturges.github.io/minimalcomps-openfl-designer/
 
-![screen-capture](http://labs.jasonsturges.com/haxe/openfl/minimalcomps-designer/screenshot.png)
-
+![screen-capture](https://user-images.githubusercontent.com/1213591/106400463-2a66b700-63e4-11eb-945a-93896d8a2d6b.png)
